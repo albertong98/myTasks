@@ -1,4 +1,4 @@
-package com.example.mytasks;
+package com.uniovi.mytasks;
 
 import org.junit.Test;
 

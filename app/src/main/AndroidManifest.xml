@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTasks">
         <activity
-            android:name=".MainActivity"
+            android:name="com.uniovi.mytasks.FormularioActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.uniovi.mytasks.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
