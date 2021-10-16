@@ -11,8 +11,18 @@ import android.util.Log;
 import com.example.mytasks.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uniovi.mytasks.modelo.Task;
+import com.uniovi.mytasks.util.Lector;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,8 +54,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void cargarTareas(){
         listaTareas = new ArrayList<Task>();
-    }
+        String result = Lector.leerDeJson(getApplicationContext(),"tareas.json");
+        try{
+            JSONObject jsonTareas = new JSONObject(result);
+            JSONArray tareas = jsonTareas.getJSONArray("tareas");
+            for(int i=0;i<tareas.length();i++){
+                JSONObject tarea = tareas.getJSONObject(i);
+                String titulo = tarea.getString("titulo");
+                String descripcion = tarea.getString("descripcion");
+                String fecha = tarea.getString("fecha");
 
+                listaTareas.add(new Task(titulo,descripcion,new SimpleDateFormat("dd/MM/yyyy").parse(fecha)));
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        }catch(ParseException p){
+            p.printStackTrace();
+        }
+    }
     //private void listaTareasAdapter(){}
 
     @Override
