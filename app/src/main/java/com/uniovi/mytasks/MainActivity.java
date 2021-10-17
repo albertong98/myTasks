@@ -1,14 +1,17 @@
 package com.uniovi.mytasks;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.mytasks.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uniovi.mytasks.modelo.Task;
 import com.uniovi.mytasks.util.Lector;
@@ -26,25 +29,47 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAREA_SELECCIONADA = " ";
     public final static int GESTION_TAREA = 1;
     public final static String TAREA_ADD = "tarea_add";
     List<Task> listaTareas;
     /**
      * TODO: Pendiente de implementar vista para poder ver las tareas a modo de lista y pulsar en ellas
      * **/
-    //RecyclerView listaTareasView
+    RecyclerView listaTareaView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_recycler_view);
 
         cargarTareas();
+
+        listaTareaView = (RecyclerView) findViewById(R.id.recyclerView);
+        listaTareaView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        listaTareaView.setLayoutManager(layoutManager);
+        ListaTareasAdapter ltAdapter = new ListaTareasAdapter(listaTareas, new ListaTareasAdapter.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onItemClick(Task item) {
+                clickOnItem(item);
+            }
+        });
+        listaTareaView.setAdapter(ltAdapter);
 
         FloatingActionButton fab = findViewById(R.id.botonAdd);
         fab.setOnClickListener(view ->{
             crearNuevaTarea();
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void clickOnItem(Task tarea) {
+        //Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        //intent.putExtra(TAREA_SELECCIONADA, tarea);
     }
 
     private void crearNuevaTarea(){

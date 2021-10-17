@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.mytasks.R;
 import com.uniovi.mytasks.modelo.Task;
 
 import java.util.Date;
