@@ -32,8 +32,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAREA_SELECCIONADA = "tarea_seleccionada";
+    public static final String TAREA_DELETE = "tarea_delete";
     public final static int GESTION_TAREA = 1;
-    public final static int MODIFICAR_TAREA = 1;
+    public final static int MODIFICAR_TAREA = 2;
     public final static String TAREA_ADD = "tarea_add";
     List<Task> listaTareas;
     /**
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private void clickOnItem(Task tarea) {
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
         intent.putExtra(TAREA_SELECCIONADA, tarea);
-        startActivityForResult(intent,GESTION_TAREA);
+        startActivityForResult(intent,MODIFICAR_TAREA);
     }
 
     private void crearNuevaTarea(){
@@ -107,9 +108,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }else if(requestCode == MODIFICAR_TAREA){
             if(resultCode == RESULT_OK){
-                Task task = data.getParcelableExtra(TAREA_SELECCIONADA);
+                Task task = data.getParcelableExtra(TAREA_DELETE);
                 deleteTask(task);
-                //listaTareasAdapter()
             }
         }else if(resultCode == RESULT_CANCELED)
             Log.d("MyTasks.MainActivity","FormularioActivity cancelada");
@@ -127,8 +127,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteTask(Task task){
-        int i = listaTareas.indexOf(task);
-        listaTareas.remove(i);
+        Integer i = null;
+        for(Task t : listaTareas)
+            if(t.getTitulo().equals(task.getTitulo()) && t.getFecha().equals(task.getFecha()) && t.getDescripcion().equals(task.getDescripcion()))
+                i = listaTareas.indexOf(t);
+        if(i !=null)
+            listaTareas.remove(i.intValue());
 
         introListaTareas();
     }

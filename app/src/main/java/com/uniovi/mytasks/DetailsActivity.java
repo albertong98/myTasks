@@ -35,7 +35,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         ImageButton delete = findViewById(R.id.deleteButton);
         delete.setOnClickListener(view ->{
-            deleteTask();
+            deleteTask(task);
         });
     }
 
@@ -48,8 +48,9 @@ public class DetailsActivity extends AppCompatActivity {
         fecha.setText(df.format(task.getFecha()));
     }
 
-    private void deleteTask(){
+    private void deleteTask(Task task){
         Intent intentResult = new Intent();
+        intentResult.putExtra(MainActivity.TAREA_DELETE, task);
         setResult(RESULT_OK,intentResult);
         finish();
     }
