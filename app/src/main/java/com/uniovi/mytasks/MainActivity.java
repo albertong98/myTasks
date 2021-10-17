@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -30,8 +31,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAREA_SELECCIONADA = " ";
+    public static final String TAREA_SELECCIONADA = "tarea_seleccionada";
     public final static int GESTION_TAREA = 1;
+    public final static int MODIFICAR_TAREA = 1;
     public final static String TAREA_ADD = "tarea_add";
     List<Task> listaTareas;
     /**
@@ -51,14 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         listaTareaView.setLayoutManager(layoutManager);
-        ListaTareasAdapter ltAdapter = new ListaTareasAdapter(listaTareas, new ListaTareasAdapter.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onItemClick(Task item) {
-                clickOnItem(item);
-            }
-        });
-        listaTareaView.setAdapter(ltAdapter);
+
+        introListaTareas();
 
         FloatingActionButton fab = findViewById(R.id.botonAdd);
         fab.setOnClickListener(view ->{
@@ -68,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void clickOnItem(Task tarea) {
-        //Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-        //intent.putExtra(TAREA_SELECCIONADA, tarea);
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        intent.putExtra(TAREA_SELECCIONADA, tarea);
+        startActivityForResult(intent,GESTION_TAREA);
     }
 
     private void crearNuevaTarea(){
@@ -108,7 +105,31 @@ public class MainActivity extends AppCompatActivity {
                 listaTareas.add(task);
                 //listaTareasAdapter()
             }
+        }else if(requestCode == MODIFICAR_TAREA){
+            if(resultCode == RESULT_OK){
+                Task task = data.getParcelableExtra(TAREA_SELECCIONADA);
+                deleteTask(task);
+                //listaTareasAdapter()
+            }
         }else if(resultCode == RESULT_CANCELED)
             Log.d("MyTasks.MainActivity","FormularioActivity cancelada");
+    }
+
+    private void introListaTareas(){
+        ListaTareasAdapter ltAdapter = new ListaTareasAdapter(listaTareas, new ListaTareasAdapter.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onItemClick(Task item) {
+                clickOnItem(item);
+            }
+        });
+        listaTareaView.setAdapter(ltAdapter);
+    }
+
+    private void deleteTask(Task task){
+        int i = listaTareas.indexOf(task);
+        listaTareas.remove(i);
+
+        introListaTareas();
     }
 }
