@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 Task task = data.getParcelableExtra(TAREA_ADD);
                 listaTareas.add(task);
-                //listaTareasAdapter()
+                introListaTareas();
             }
         }else if(requestCode == MODIFICAR_TAREA){
             if(resultCode == RESULT_OK){
