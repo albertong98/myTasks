@@ -3,4 +3,8 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="contentDescriptionFABTareas">Añadir tarea</string>
+    <string name="detalles">Detalles</string>
+    <string name="t_tulo_de_la_tarea">Título de la tarea</string>
+    <string name="txtFecha">Fecha</string>
+    <string name="btnFecha">Fecha</string>
 </resources>
