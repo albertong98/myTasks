@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.mytasks.R;
 import com.uniovi.mytasks.modelo.Task;
 
 import java.util.Calendar;
