@@ -40,8 +40,8 @@ public class FormularioActivity extends AppCompatActivity {
 
 
         buttonOk.setOnClickListener(view -> {
-            /** TODO: Obtener datos correctos de la tarea **/
-            Task task = new Task("","",new Date(System.currentTimeMillis()));
+            /** TODO: Pasar tarea a la lista **/
+            Task task = new Task(titulo.toString(),detalles.toString(), (Date) txtDate.getText());
             Intent intentResult = new Intent();
             intentResult.putExtra(MainActivity.TAREA_ADD,task);
             setResult(RESULT_OK,intentResult);
