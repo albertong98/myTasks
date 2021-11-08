@@ -44,7 +44,6 @@ public class FormularioActivity extends AppCompatActivity {
 
 
         buttonOk.setOnClickListener(view -> {
-            /** TODO: Obtener datos correctos de la tarea **/
             Task task = null;
             try {
                 task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()));

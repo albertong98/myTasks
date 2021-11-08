@@ -6,10 +6,12 @@ import android.os.Parcelable;
 import java.util.Date;
 
 public class Task implements Parcelable {
-
+    int id;
     private String titulo;
     private String descripcion;
     private Date fecha;
+
+    public Task(){}
 
     public Task(String titulo, String descripcion, Date fecha) {
         this.titulo = titulo;
@@ -17,11 +19,23 @@ public class Task implements Parcelable {
         this.fecha = fecha;
     }
 
+    public Task(int id, String titulo, String descripcion, Date fecha) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+    }
+
     public Task(Parcel in) {
+        this.id = in.readInt();
         this.titulo = in.readString();
         this.descripcion = in.readString();
         this.fecha = new Date(in.readLong());
     }
+
+    public int getId(){ return id; }
+
+    public void setId(int id){ this.id = id; }
 
     public String getTitulo() {
         return titulo;
@@ -66,6 +80,7 @@ public class Task implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.titulo);
         dest.writeString(this.descripcion);
         dest.writeLong(this.fecha.getTime());

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.uniovi.mytasks.datos.TareasDataSource;
 import com.uniovi.mytasks.modelo.Task;
 import com.uniovi.mytasks.util.Lector;
 
@@ -37,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
     public final static int MODIFICAR_TAREA = 2;
     public final static String TAREA_ADD = "tarea_add";
     List<Task> listaTareas;
-    /**
-     * TODO: Pendiente de implementar vista para poder ver las tareas a modo de lista y pulsar en ellas
-     * **/
+
     RecyclerView listaTareaView;
+
+    TareasDataSource taskDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recycler_view);
 
-        cargarTareas();
+        cargarTareasDB();
 
         listaTareaView = (RecyclerView) findViewById(R.id.recyclerView);
         listaTareaView.setHasFixedSize(true);
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         listaTareaView.setLayoutManager(layoutManager);
 
-        introListaTareas();
+        if(listaTareas != null && !listaTareas.isEmpty())
+            introListaTareas();
 
         FloatingActionButton fab = findViewById(R.id.botonAdd);
         fab.setOnClickListener(view ->{
@@ -95,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
             p.printStackTrace();
         }
     }
+
+    private void cargarTareasDB(){
+        taskDataSource = new TareasDataSource(getApplicationContext());
+        listaTareas = taskDataSource.getAllValorations();
+    }
     //private void listaTareasAdapter(){}
 
     @Override
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == GESTION_TAREA){
             if(resultCode == RESULT_OK){
                 Task task = data.getParcelableExtra(TAREA_ADD);
+                addTarea(task);
                 listaTareas.add(task);
                 introListaTareas();
             }
@@ -124,6 +132,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         listaTareaView.setAdapter(ltAdapter);
+    }
+
+    private void addTarea(Task task){
+        task.setId(listaTareas.size());
+        taskDataSource = new TareasDataSource(getApplicationContext());
+        taskDataSource.createtask(task);
     }
 
     private void deleteTask(Task task){
