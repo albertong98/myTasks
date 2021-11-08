@@ -150,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 i = listaTareas.indexOf(t);
         if(i !=null)
             listaTareas.remove(i.intValue());
-
+        taskDataSource = new TareasDataSource(getApplicationContext());
+        taskDataSource.deleteOneTask(task);
         introListaTareas();
     }
 }

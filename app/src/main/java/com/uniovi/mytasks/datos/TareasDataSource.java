@@ -41,7 +41,7 @@ public class TareasDataSource {
     }
 
     public long createtask(Task taskToInsert) {
-       this.open();
+        this.open();
         // Establecemos los valores que se insertaran
         ContentValues values = new ContentValues();
 
@@ -57,6 +57,22 @@ public class TareasDataSource {
                 database.insert(MyDBHelper.TABLA_TAREAS, null, values);
         this.close();
         return insertId;
+    }
+
+    public boolean deleteOneTask(Task taskToDelete){
+        this.open();
+        boolean b = database.delete(MyDBHelper.TABLA_TAREAS,MyDBHelper.COLUMNA_ID_TAREA +" = "+taskToDelete.getId(),null) == 1;
+        this.close();
+        return b;
+    }
+
+    public boolean deleteTasksForDay(Date date){
+        this.open();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String sFecha = formatter.format(date);
+        boolean b = database.delete(MyDBHelper.TABLA_TAREAS,MyDBHelper.COLUMNA_FECHA_TAREA +" =?",new String[]{sFecha}) > 0;
+        this.close();
+        return b;
     }
 
     public List<Task> getAllValorations() {
