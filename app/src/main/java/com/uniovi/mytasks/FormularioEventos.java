@@ -20,30 +20,39 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class FormularioActivity extends AppCompatActivity {
+public class FormularioEventos extends AppCompatActivity {
 
     private int day, month, year;
 
     EditText titulo;
     EditText detalles;
+    EditText ubicacion;
 
     //datos del datepicker
     EditText txtDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario);
+        setContentView(R.layout.activity_formulario_eventos);
 
         Button buttonOk = findViewById(R.id.buttonOk);
         Button buttonCancel = findViewById(R.id.buttonCancel);
         ImageButton btnDate = findViewById(R.id.imgBtnDate);
 
+        titulo = (EditText) findViewById(R.id.txtTituloTareaAñadir);
+        detalles = (EditText) findViewById(R.id.txtDetallesAñadir);
         txtDate = (EditText) findViewById(R.id.txtFecha);
+        ubicacion = (EditText) findViewById(R.id.txtUbicacion);
 
 
         buttonOk.setOnClickListener(view -> {
             /** TODO: Obtener datos correctos de la tarea **/
-            Task task = new Task("","",new Date(System.currentTimeMillis()));
+            Task task = null;
+            try {
+                task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()), ubicacion.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             Intent intentResult = new Intent();
             intentResult.putExtra(MainActivity.TAREA_ADD,task);
             setResult(RESULT_OK,intentResult);
@@ -51,8 +60,8 @@ public class FormularioActivity extends AppCompatActivity {
         });
 
         buttonCancel.setOnClickListener(view ->{
-                setResult(RESULT_CANCELED);
-                finish();
+            setResult(RESULT_CANCELED);
+            finish();
         });
 
         btnDate.setOnClickListener(view -> {
@@ -107,5 +116,4 @@ public class FormularioActivity extends AppCompatActivity {
             }
         }
     }
-
 }

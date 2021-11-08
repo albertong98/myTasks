@@ -7,4 +7,7 @@
     <string name="t_tulo_de_la_tarea">Título de la tarea</string>
     <string name="txtFecha">Fecha</string>
     <string name="btnFecha">Fecha</string>
+    <string name="t_tulo_del_evento">Titulo del Evento</string>
+    <string name="Ubicación">ubicacion</string>
+    <string name="ubicacion">Ubicación</string>
 </resources>
