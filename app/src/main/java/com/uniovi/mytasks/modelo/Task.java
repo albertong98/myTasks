@@ -10,12 +10,24 @@ public class Task implements Parcelable {
     private String titulo;
     private String descripcion;
     private Date fecha;
+    private String ubicacion;
+
+
 
     public Task(String titulo, String descripcion, Date fecha) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
     }
+
+    public Task(String titulo, String descripcion, Date fecha, String ubicacion) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.ubicacion = ubicacion;
+    }
+
+
 
     public Task(Parcel in) {
         this.titulo = in.readString();
@@ -45,6 +57,14 @@ public class Task implements Parcelable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
