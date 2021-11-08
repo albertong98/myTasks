@@ -1,4 +1,5 @@
 package com.uniovi.mytasks.datos;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,17 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.uniovi.mytasks.modelo.Task;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-public class TareasDataSource {
+
+public class EventosDataSource {
     private SQLiteDatabase database;
-    /**
-     * Referencia al helper que se encarga de crear y actualizar la base de datos.
-     */
     private MyDBHelper dbHelper;
     /**
      * Columnas de la tabla
@@ -25,15 +21,13 @@ public class TareasDataSource {
     private final String[] allColumns = {MyDBHelper.COLUMNA_ID_TAREA,MyDBHelper.COLUMNA_TITULO_TAREA,
             MyDBHelper.COLUMNA_DESCRIPCION_TAREA,MyDBHelper.COLUMNA_FECHA_TAREA};
 
-    public TareasDataSource(Context context) {
+    public EventosDataSource(Context context) {
         //el último parámetro es la versión
         dbHelper = new MyDBHelper(context, null, null, 1);
-
     }
 
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
-        //dbHelper.onCreate(database);
     }
 
     public void close() {
@@ -41,16 +35,14 @@ public class TareasDataSource {
     }
 
     public long createtask(Task taskToInsert) {
-       this.open();
+        this.open();
         // Establecemos los valores que se insertaran
         ContentValues values = new ContentValues();
 
         values.put(MyDBHelper.COLUMNA_ID_TAREA,taskToInsert.getId());
         values.put(MyDBHelper.COLUMNA_TITULO_TAREA,taskToInsert.getTitulo());
         values.put(MyDBHelper.COLUMNA_DESCRIPCION_TAREA,taskToInsert.getDescripcion());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String sFecha = formatter.format(taskToInsert.getFecha());
-        values.put(MyDBHelper.COLUMNA_FECHA_TAREA,sFecha);
+        values.put(MyDBHelper.COLUMNA_FECHA_TAREA,taskToInsert.getFecha().getTime());
 
         // Insertamos la valoracion
         long insertId =
@@ -72,18 +64,7 @@ public class TareasDataSource {
         while (!cursor.isAfterLast()) {
             final Task task= new Task();
             cursor.getInt(0);
-            task.setId(cursor.getInt(0));
-            task.setTitulo(cursor.getString(1));
-            task.setDescripcion(cursor.getString(2));
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            try{
-                String s = cursor.getString(3);
-                Date date = formatter.parse(s);
-                task.setFecha(date);
-            }catch (ParseException e){
-                e.printStackTrace();
-            }
-            taskList.add(task);
+
             cursor.moveToNext();
         }
 

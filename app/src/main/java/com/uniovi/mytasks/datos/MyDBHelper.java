@@ -24,15 +24,22 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     public static final String COLUMNA_ID_TAREA = "id_tarea";
     public static final String COLUMNA_TITULO_TAREA = "titulo_tarea";
-    public static final String COLUMNA_DESCRIPCION_TAREA = "descripcion_pelicula";
-    public static final String COLUMNA_FECHA_TAREA = "fecha_pelicula";
+    public static final String COLUMNA_DESCRIPCION_TAREA = "descripcion_tarea";
+    public static final String COLUMNA_FECHA_TAREA = "fecha_tarea";
+
+    public static final String TABLA_EVENTOS = "tabla_tareas";
+
+    public static final String COLUMNA_ID_EVENTO = "id_evento";
+    public static final String COLUMNA_TITULO_EVENTO = "titulo_evento";
+    public static final String COLUMNA_DESCRIPCION_EVENTO = "descripcion_evento";
+    public static final String COLUMNA_FECHA_EVENTO = "fecha_evento";
 
     private static final String CREATE_TABLA_TAREAS =
             "create table if not exists " + TABLA_TAREAS + " (" +
             COLUMNA_ID_TAREA + " integer primary key," +
             COLUMNA_TITULO_TAREA + " text not null," +
             COLUMNA_DESCRIPCION_TAREA  + " text," +
-            COLUMNA_FECHA_TAREA + " integer not null" +
+            COLUMNA_FECHA_TAREA + " text not null" +
             ");";
 
     /**
@@ -43,11 +50,13 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public MyDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
                       int version) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         //invocamos execSQL pq no devuelve ningún tipo de dataset
+        //db.execSQL(DATABASE_DROP_TAREAS);
         db.execSQL(CREATE_TABLA_TAREAS);
 
         Log.i("ONCREATE", "EJECUTO CREACION");

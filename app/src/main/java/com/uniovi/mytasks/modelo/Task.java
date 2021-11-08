@@ -3,6 +3,9 @@ package com.uniovi.mytasks.modelo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Task implements Parcelable {

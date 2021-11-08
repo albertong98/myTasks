@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recycler_view);
-
+        //listaTareas = new ArrayList<Task>();
         cargarTareasDB();
 
         listaTareaView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -135,7 +135,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addTarea(Task task){
-        task.setId(listaTareas.size());
+        if(listaTareas != null)
+            task.setId(listaTareas.size());
+        else
+            task.setId(0);
         taskDataSource = new TareasDataSource(getApplicationContext());
         taskDataSource.createtask(task);
     }
