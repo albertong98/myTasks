@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Task implements Parcelable {
 
+    private String id;
     private String titulo;
     private String descripcion;
     private Date fecha;
@@ -22,7 +23,7 @@ public class Task implements Parcelable {
         this.fecha = fecha;
     }
 
-    public Task(int id, String titulo, String descripcion, Date fecha) {
+    public Task(String id, String titulo, String descripcion, Date fecha) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -39,15 +40,16 @@ public class Task implements Parcelable {
 
 
     public Task(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readString();
         this.titulo = in.readString();
         this.descripcion = in.readString();
         this.fecha = new Date(in.readLong());
+        this.ubicacion = in.readString();
     }
 
-    public int getId(){ return id; }
+    public String getId(){ return id; }
 
-    public void setId(int id){ this.id = id; }
+    public void setId(String id){ this.id = id; }
 
     public String getTitulo() {
         return titulo;
@@ -100,10 +102,11 @@ public class Task implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeString(this.id);
         dest.writeString(this.titulo);
         dest.writeString(this.descripcion);
         dest.writeLong(this.fecha.getTime());
+        dest.writeString(this.ubicacion);
     }
 
     @Override

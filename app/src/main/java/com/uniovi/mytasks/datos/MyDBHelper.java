@@ -26,13 +26,15 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public static final String COLUMNA_TITULO_TAREA = "titulo_tarea";
     public static final String COLUMNA_DESCRIPCION_TAREA = "descripcion_pelicula";
     public static final String COLUMNA_FECHA_TAREA = "fecha_pelicula";
+    public static final String COLUMNA_UBICACION = "ubicacion_pelicula";
 
     private static final String CREATE_TABLA_TAREAS =
             "create table if not exists " + TABLA_TAREAS + " (" +
-            COLUMNA_ID_TAREA + " integer primary key," +
+            COLUMNA_ID_TAREA + " text primary key," +
             COLUMNA_TITULO_TAREA + " text not null," +
             COLUMNA_DESCRIPCION_TAREA  + " text," +
-            COLUMNA_FECHA_TAREA + " integer not null" +
+            COLUMNA_FECHA_TAREA + " integer not null," +
+            COLUMNA_UBICACION  + " text" +
             ");";
 
     /**

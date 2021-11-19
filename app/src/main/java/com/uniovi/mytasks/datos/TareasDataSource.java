@@ -10,6 +10,8 @@ import com.uniovi.mytasks.modelo.Task;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 public class TareasDataSource {
     private SQLiteDatabase database;
     /**
@@ -20,7 +22,7 @@ public class TareasDataSource {
      * Columnas de la tabla
      */
     private final String[] allColumns = {MyDBHelper.COLUMNA_ID_TAREA,MyDBHelper.COLUMNA_TITULO_TAREA,
-            MyDBHelper.COLUMNA_DESCRIPCION_TAREA,MyDBHelper.COLUMNA_FECHA_TAREA};
+            MyDBHelper.COLUMNA_DESCRIPCION_TAREA,MyDBHelper.COLUMNA_FECHA_TAREA, MyDBHelper.COLUMNA_UBICACION};
 
     public TareasDataSource(Context context) {
         //el último parámetro es la versión
@@ -40,10 +42,11 @@ public class TareasDataSource {
         // Establecemos los valores que se insertaran
         ContentValues values = new ContentValues();
 
-        values.put(MyDBHelper.COLUMNA_ID_TAREA,taskToInsert.getId());
+        values.put(MyDBHelper.COLUMNA_ID_TAREA, UUID.randomUUID().toString());
         values.put(MyDBHelper.COLUMNA_TITULO_TAREA,taskToInsert.getTitulo());
         values.put(MyDBHelper.COLUMNA_DESCRIPCION_TAREA,taskToInsert.getDescripcion());
         values.put(MyDBHelper.COLUMNA_FECHA_TAREA,taskToInsert.getFecha().getTime());
+        values.put(MyDBHelper.COLUMNA_UBICACION,taskToInsert.getUbicacion());
 
         // Insertamos la valoracion
         long insertId =
@@ -65,10 +68,11 @@ public class TareasDataSource {
         while (!cursor.isAfterLast()) {
             final Task task= new Task();
             cursor.getInt(0);
-            task.setId(cursor.getInt(0));
+            task.setId(cursor.getString(0));
             task.setTitulo(cursor.getString(1));
             task.setDescripcion(cursor.getString(2));
             task.setFecha(new Date(cursor.getInt(3)));
+            task.setUbicacion(cursor.getString(4));
             taskList.add(task);
             cursor.moveToNext();
         }

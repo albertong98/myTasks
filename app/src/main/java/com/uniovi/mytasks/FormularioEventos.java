@@ -39,7 +39,7 @@ public class FormularioEventos extends AppCompatActivity {
         Button buttonCancel = findViewById(R.id.buttonCancel);
         ImageButton btnDate = findViewById(R.id.imgBtnDate);
 
-        titulo = (EditText) findViewById(R.id.txtTituloTareaAñadir);
+        titulo = (EditText) findViewById(R.id.txtTituloEventoAñadir);
         detalles = (EditText) findViewById(R.id.txtDetallesAñadir);
         txtDate = (EditText) findViewById(R.id.txtFecha);
         ubicacion = (EditText) findViewById(R.id.txtUbicacion);

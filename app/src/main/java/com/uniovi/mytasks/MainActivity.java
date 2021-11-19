@@ -3,19 +3,19 @@ package com.uniovi.mytasks;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uniovi.mytasks.datos.TareasDataSource;
@@ -26,13 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAREA_SELECCIONADA = "tarea_seleccionada";
     public static final String TAREA_DELETE = "tarea_delete";
     public final static int GESTION_TAREA = 1;
+    public final static int MODIFICAR_TAREA = 2;
     public final static String TAREA_ADD = "tarea_add";
+    public static String usuario;
     List<Task> listaTareas;
 
     RecyclerView listaTareaView;
@@ -92,6 +90,24 @@ public class MainActivity extends AppCompatActivity {
         fABTareas.setOnClickListener(view ->{
             crearNuevaTarea();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_usuarios, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        int id = item.getItemId();
+
+        if (id == R.id.boton_usuario){
+            Intent intentSettingsActivity = new Intent(MainActivity.this, UsuariosActivity.class);
+            startActivity(intentSettingsActivity);
+            return true;
+        }
+        return false;
     }
 
     private void onAddButtonClicked(){
@@ -175,15 +191,16 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == GESTION_TAREA){
             if(resultCode == RESULT_OK){
+                taskDataSource = new TareasDataSource(getApplicationContext());
                 Task task = data.getParcelableExtra(TAREA_ADD);
-                addTarea(task);
-                listaTareas.add(task);
+                taskDataSource.createtask(task);
+                cargarTareasDB();
                 introListaTareas();
             }
         }else if(requestCode == MODIFICAR_TAREA){
             if(resultCode == RESULT_OK){
                 Task task = data.getParcelableExtra(TAREA_DELETE);
-                deleteTask(task);
+                taskDataSource = new TareasDataSource(getApplicationContext());
             }
         }else if(resultCode == RESULT_CANCELED)
             Log.d("MyTasks.MainActivity","FormularioActivity cancelada");
@@ -201,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addTarea(Task task){
-        task.setId(listaTareas.size());
         taskDataSource = new TareasDataSource(getApplicationContext());
         taskDataSource.createtask(task);
     }

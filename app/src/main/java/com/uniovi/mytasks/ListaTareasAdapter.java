@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,17 +53,22 @@ public class ListaTareasAdapter extends RecyclerView.Adapter<ListaTareasAdapter.
 
         private TextView titulo;
         private TextView fecha;
+        private Switch tareaFinalizada;
 
         public TareasViewholder(@NonNull View itemView) {
             super(itemView);
             titulo = (TextView) itemView.findViewById(R.id.titulo);
             fecha = (TextView) itemView.findViewById(R.id.fecha);
+            tareaFinalizada = (Switch) itemView.findViewById(R.id.tareaFinalizada);
         }
 
         public void bindUser(final Task tarea, final OnItemClickListener listener) {
             titulo.setText(tarea.getTitulo());
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             fecha.setText(df.format(tarea.getFecha()));
+            if (!(tarea.getUbicacion() == null)){
+                tareaFinalizada.setVisibility(View.INVISIBLE);
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
