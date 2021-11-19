@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "485103639600",
-    "project_id": "mytasks-89f4f",
-    "storage_bucket": "mytasks-89f4f.appspot.com"
+    "project_number": "454078945586",
+    "project_id": "mytasks-f5daa",
+    "storage_bucket": "mytasks-f5daa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:485103639600:android:878cefd25d907317e3a1f5",
+        "mobilesdk_app_id": "1:454078945586:android:1e541a5e84fe6e3413df2b",
         "android_client_info": {
           "package_name": "com.uniovi.mytasks"
         }
       },
       "oauth_client": [
         {
-          "client_id": "485103639600-qs6gq253himhae9i1n49ttd5ef70ufdi.apps.googleusercontent.com",
+          "client_id": "454078945586-0cqkqgg55qd051rkolo4h83uo4f7fd2a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFyZNVSChPt_qHkxR8xnnxsSXs5qBqriU"
+          "current_key": "AIzaSyBaCodK-klTlxaOrXj-DtQvXFvw5I0MF_4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "485103639600-qs6gq253himhae9i1n49ttd5ef70ufdi.apps.googleusercontent.com",
+              "client_id": "454078945586-0cqkqgg55qd051rkolo4h83uo4f7fd2a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
