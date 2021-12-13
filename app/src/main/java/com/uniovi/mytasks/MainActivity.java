@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fABAdd;
     private FloatingActionButton fABEventos;
     private FloatingActionButton fABTareas;
+    private FloatingActionButton fABTiempo;
 
     //TODO Arreglar Animaciones
     //private final Animation rotateOpen = AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim);
@@ -96,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
         fABTareas = findViewById(R.id.fABTareas);
         fABTareas.setOnClickListener(view ->{
             crearNuevaTarea();
+        });
+        fABTareas = findViewById(R.id.fABtiempo);
+        fABTareas.setOnClickListener(view ->{
+            verTiempo();
         });
     }
 
@@ -170,6 +175,11 @@ public class MainActivity extends AppCompatActivity {
     private void crearNuevoEvento(){
         Intent intent = new Intent(MainActivity.this,FormularioEventos.class);
         startActivityForResult(intent,GESTION_TAREA);
+    }
+
+    private void verTiempo(){
+        Intent intent = new Intent(MainActivity.this,WeatherActivity.class);
+        startActivity(intent);
     }
 
     private void cargarTareas(){

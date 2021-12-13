@@ -34,6 +34,10 @@
             android:label="Usuarios"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".WeatherActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
         </activity>

@@ -53,4 +53,14 @@
         app:layout_constraintBottom_toTopOf="@+id/fABEventos"
         app:layout_constraintEnd_toEndOf="@+id/fABEventos"
         app:srcCompat="?attr/actionModePasteDrawable" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fABtiempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:srcCompat="?android:attr/textSelectHandleRight"
+        tools:layout_editor_absoluteX="320dp"
+        tools:layout_editor_absoluteY="419dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
