@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFecha"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.304" />
 
     <Button
         android:id="@+id/buttonOk"
@@ -102,32 +102,59 @@
         app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTituloEventoAñadir"
-        app:layout_constraintVertical_bias="0.216"
+        app:layout_constraintVertical_bias="0.223"
         app:srcCompat="@android:drawable/ic_menu_today"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imgDetalles"
-        android:layout_width="45dp"
-        android:layout_height="40dp"
+        android:layout_width="56dp"
+        android:layout_height="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTituloEventoAñadir"
-        app:layout_constraintVertical_bias="0.102"
+        app:layout_constraintVertical_bias="0.094"
         app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
 
     <ImageView
         android:id="@+id/imgUbicacion"
         android:layout_width="56dp"
         android:layout_height="67dp"
-        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtUbicacion"
-        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBtnDate"
-        app:layout_constraintVertical_bias="0.005"
+        app:layout_constraintTop_toBottomOf="@+id/txtTituloEventoAñadir"
+        app:layout_constraintVertical_bias="0.502"
         app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+    <ImageButton
+        android:id="@+id/imgBtnTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTituloEventoAñadir"
+        app:layout_constraintVertical_bias="0.359"
+        app:srcCompat="@android:drawable/ic_menu_recent_history"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/txtHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/txtHora"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFecha"
+        app:layout_constraintVertical_bias="0.077" />
 </androidx.constraintlayout.widget.ConstraintLayout>
