@@ -10,4 +10,5 @@
     <string name="t_tulo_del_evento">Titulo del Evento</string>
     <string name="Ubicación">ubicacion</string>
     <string name="ubicacion">Ubicación</string>
+    <string name="txtHora">Hora</string>
 </resources>

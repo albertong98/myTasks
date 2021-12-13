@@ -11,30 +11,33 @@ public class Task implements Parcelable {
     private String titulo;
     private String descripcion;
     private Date fecha;
+    private Date hora;
     private String ubicacion;
     private String email;
 
 
-
     public Task(){}
 
-    public Task(String titulo, String descripcion, Date fecha) {
+    public Task(String titulo, String descripcion, Date fecha, Date hora) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
+        this.hora = hora;
     }
 
-    public Task(String titulo, String descripcion, Date fecha, String email) {
+    public Task(String titulo, String descripcion, Date fecha, Date hora, String email) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
+        this.hora = hora;
         this.email = email;
     }
 
-    public Task(String titulo, String descripcion, Date fecha, String ubicacion, String email) {
+    public Task(String titulo, String descripcion, Date fecha, String ubicacion, Date hora, String email) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
+        this.hora = hora;
         this.ubicacion = ubicacion;
         this.email = email;
     }
@@ -46,6 +49,7 @@ public class Task implements Parcelable {
         this.titulo = in.readString();
         this.descripcion = in.readString();
         this.fecha = new Date(in.readLong());
+        this.hora = new Date(in.readLong());
         this.ubicacion = in.readString();
         this.email = in.readString();
     }
@@ -77,6 +81,15 @@ public class Task implements Parcelable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+
 
     public String getUbicacion() {
         return ubicacion;

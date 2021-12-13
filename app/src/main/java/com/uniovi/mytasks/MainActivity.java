@@ -183,8 +183,9 @@ public class MainActivity extends AppCompatActivity {
                 String titulo = tarea.getString("titulo");
                 String descripcion = tarea.getString("descripcion");
                 String fecha = tarea.getString("fecha");
+                String hora = tarea.getString( "hora");
 
-                listaTareas.add(new Task(titulo,descripcion,new SimpleDateFormat("dd/MM/yyyy").parse(fecha)));
+                listaTareas.add(new Task(titulo,descripcion,new SimpleDateFormat("dd/MM/yyyy").parse(fecha),new SimpleDateFormat("hh:mm").parse(hora)));
             }
         }catch(JSONException e){
             e.printStackTrace();

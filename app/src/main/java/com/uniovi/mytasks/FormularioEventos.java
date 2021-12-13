@@ -3,6 +3,7 @@ package com.uniovi.mytasks;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -11,11 +12,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.uniovi.mytasks.modelo.Task;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,7 +26,7 @@ import java.util.Date;
 
 public class FormularioEventos extends AppCompatActivity {
 
-    private int day, month, year;
+    private int day, month, year, hour, min;
 
     EditText titulo;
     EditText detalles;
@@ -31,6 +34,7 @@ public class FormularioEventos extends AppCompatActivity {
 
     //datos del datepicker
     EditText txtDate;
+    EditText txtHour;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +43,12 @@ public class FormularioEventos extends AppCompatActivity {
         Button buttonOk = findViewById(R.id.buttonOk);
         Button buttonCancel = findViewById(R.id.buttonCancel);
         ImageButton btnDate = findViewById(R.id.imgBtnDate);
+        ImageButton btnTime = findViewById(R.id.imgBtnTime);
 
         titulo = (EditText) findViewById(R.id.txtTituloEventoAñadir);
         detalles = (EditText) findViewById(R.id.txtDetallesAñadir);
         txtDate = (EditText) findViewById(R.id.txtFecha);
+        txtHour = (EditText) findViewById(R.id.txtHora);
         ubicacion = (EditText) findViewById(R.id.txtUbicacion);
 
 
@@ -50,7 +56,7 @@ public class FormularioEventos extends AppCompatActivity {
             /** TODO: Obtener datos correctos de la tarea **/
             Task task = null;
             try {
-                task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()), ubicacion.getText().toString(),
+                task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()), ubicacion.getText().toString(), new SimpleDateFormat("hh:mm").parse(txtHour.getText().toString()),
                         FirebaseAuth.getInstance().getCurrentUser().getEmail());
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -67,7 +73,6 @@ public class FormularioEventos extends AppCompatActivity {
         });
 
         btnDate.setOnClickListener(view -> {
-            if(view==btnDate){
                 final Calendar c = Calendar.getInstance();
                 day = c.get(Calendar.DAY_OF_MONTH);
                 month = c.get(Calendar.MONTH);
@@ -84,9 +89,28 @@ public class FormularioEventos extends AppCompatActivity {
 
                     }
                 }
-                        , day, month, year);
+                        , year, month, day);
                 datePickerDialog.show();
+
+        });
+
+        btnTime.setOnClickListener(view -> {
+            final Calendar c = Calendar.getInstance();
+            hour = c.get(Calendar.HOUR_OF_DAY);
+            min = c.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+
+                    hour = hourOfDay;
+                    min = minute;
+                    txtHour.setText(hourOfDay+":"+minute);
+
+                }
             }
+                    , hour, min, true);
+            timePickerDialog.show();
         });
     }
 
@@ -101,6 +125,9 @@ public class FormularioEventos extends AppCompatActivity {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, day);
+
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, min);
 
                 intent = new Intent(Intent.ACTION_EDIT);
                 intent.setType("vnd.android.cursor.item/event");
