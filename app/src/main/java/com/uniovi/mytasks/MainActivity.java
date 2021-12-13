@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
         fABTareas.setOnClickListener(view ->{
             crearNuevaTarea();
         });
-        fABTareas = findViewById(R.id.fABtiempo);
-        fABTareas.setOnClickListener(view ->{
+        fABTiempo = findViewById(R.id.fABtiempo);
+        fABTiempo.setOnClickListener(view ->{
             verTiempo();
         });
     }
