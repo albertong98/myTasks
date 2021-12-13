@@ -17,12 +17,15 @@ import retrofit2.Response;
 
 public class WeatherActivity extends AppCompatActivity {
     TextView temperatura;
+    TextView descripcion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
         temperatura = findViewById(R.id.temperatura);
+        descripcion = findViewById(R.id.valorDescripcion);
 
         weatherApi weatherApi = createWeatherApi();
 
@@ -40,6 +43,7 @@ public class WeatherActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                     temperatura.setText(response.body().main.getTemp()+" ºC");
+                    descripcion.setText(response.body().weather.get(0).description);
                 }
 
                 @Override

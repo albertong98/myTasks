@@ -60,7 +60,11 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:visibility="invisible"
-        app:srcCompat="?android:attr/textSelectHandleRight"
-        tools:layout_editor_absoluteX="320dp"
-        tools:layout_editor_absoluteY="419dp" />
+        app:layout_constraintBottom_toTopOf="@+id/fABTareas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.904"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.962"
+        app:srcCompat="?android:attr/textSelectHandleRight" />
 </androidx.constraintlayout.widget.ConstraintLayout>
