@@ -86,7 +86,7 @@ public class FormularioActivity extends AppCompatActivity {
 
                     }
                 }
-                        , day, month, year);
+                        , year, month, day);
                 datePickerDialog.show();
 
         });
