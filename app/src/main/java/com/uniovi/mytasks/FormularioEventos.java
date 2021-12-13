@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.uniovi.mytasks.modelo.Task;
 
 import java.sql.Time;
@@ -44,7 +45,7 @@ public class FormularioEventos extends AppCompatActivity {
         ImageButton btnDate = findViewById(R.id.imgBtnDate);
         ImageButton btnTime = findViewById(R.id.imgBtnTime);
 
-        titulo = (EditText) findViewById(R.id.txtTituloTareaAñadir);
+        titulo = (EditText) findViewById(R.id.txtTituloEventoAñadir);
         detalles = (EditText) findViewById(R.id.txtDetallesAñadir);
         txtDate = (EditText) findViewById(R.id.txtFecha);
         txtHour = (EditText) findViewById(R.id.txtHora);
@@ -55,7 +56,8 @@ public class FormularioEventos extends AppCompatActivity {
             /** TODO: Obtener datos correctos de la tarea **/
             Task task = null;
             try {
-                task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()), ubicacion.getText().toString(), new SimpleDateFormat("hh:mm").parse(txtHour.getText().toString()));
+                task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()), ubicacion.getText().toString(), new SimpleDateFormat("hh:mm").parse(txtHour.getText().toString()),
+                        FirebaseAuth.getInstance().getCurrentUser().getEmail());
             } catch (ParseException e) {
                 e.printStackTrace();
             }

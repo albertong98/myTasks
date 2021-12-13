@@ -3,20 +3,28 @@ package com.uniovi.mytasks;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.uniovi.mytasks.datos.TareasDataSource;
 import com.uniovi.mytasks.modelo.Task;
 import com.uniovi.mytasks.util.Lector;
 
@@ -36,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
     public final static int GESTION_TAREA = 1;
     public final static int MODIFICAR_TAREA = 2;
     public final static String TAREA_ADD = "tarea_add";
+    public static String usuario;
     List<Task> listaTareas;
-    /**
-     * TODO: Pendiente de implementar vista para poder ver las tareas a modo de lista y pulsar en ellas
-     * **/
+
     RecyclerView listaTareaView;
 
     private FloatingActionButton fABAdd;
@@ -55,18 +62,24 @@ public class MainActivity extends AppCompatActivity {
     private boolean clicked = false;
 
 
+    TareasDataSource taskDataSource;
+    private GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recycler_view);
 
-        cargarTareas();
+        cargarTareasDB();
 
         listaTareaView = findViewById(R.id.recyclerView);
         listaTareaView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         listaTareaView.setLayoutManager(layoutManager);
+
+        if(listaTareas != null && !listaTareas.isEmpty())
+            introListaTareas();
 
         introListaTareas();
 
@@ -84,6 +97,30 @@ public class MainActivity extends AppCompatActivity {
         fABTareas.setOnClickListener(view ->{
             crearNuevaTarea();
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_usuarios, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        int id = item.getItemId();
+
+        if (id == R.id.boton_usuario){
+            FirebaseAuth.getInstance().signOut();
+            this.finish();
+        }
+        return false;
     }
 
     private void onAddButtonClicked(){
@@ -156,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
             p.printStackTrace();
         }
     }
+
+    private void cargarTareasDB(){
+        taskDataSource = new TareasDataSource(getApplicationContext());
+        listaTareas = taskDataSource.getTasksByUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+    }
     //private void listaTareasAdapter(){}
 
     @Override
@@ -163,14 +205,16 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == GESTION_TAREA){
             if(resultCode == RESULT_OK){
+                taskDataSource = new TareasDataSource(getApplicationContext());
                 Task task = data.getParcelableExtra(TAREA_ADD);
-                listaTareas.add(task);
+                taskDataSource.createtask(task);
+                cargarTareasDB();
                 introListaTareas();
             }
         }else if(requestCode == MODIFICAR_TAREA){
             if(resultCode == RESULT_OK){
                 Task task = data.getParcelableExtra(TAREA_DELETE);
-                deleteTask(task);
+                taskDataSource = new TareasDataSource(getApplicationContext());
             }
         }else if(resultCode == RESULT_CANCELED)
             Log.d("MyTasks.MainActivity","FormularioActivity cancelada");
@@ -185,6 +229,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         listaTareaView.setAdapter(ltAdapter);
+    }
+
+    private void addTarea(Task task){
+        taskDataSource = new TareasDataSource(getApplicationContext());
+        taskDataSource.createtask(task);
     }
 
     private void deleteTask(Task task){

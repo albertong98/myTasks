@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "454078945586",
+    "project_id": "mytasks-f5daa",
+    "storage_bucket": "mytasks-f5daa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454078945586:android:ba386e49e7e6144e13df2b",
+        "android_client_info": {
+          "package_name": "com.uniovi.mytasks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454078945586-0cqkqgg55qd051rkolo4h83uo4f7fd2a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaCodK-klTlxaOrXj-DtQvXFvw5I0MF_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454078945586-0cqkqgg55qd051rkolo4h83uo4f7fd2a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

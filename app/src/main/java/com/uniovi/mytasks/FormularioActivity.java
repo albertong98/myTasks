@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.uniovi.mytasks.modelo.Task;
 
 import java.text.ParseException;
@@ -52,7 +53,8 @@ public class FormularioActivity extends AppCompatActivity {
             /** TODO: Obtener datos correctos de la tarea **/
             Task task = null;
             try {
-                task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()), new SimpleDateFormat("hh:mm").parse(txtHour.getText().toString()) );
+                task = new Task(titulo.getText().toString(),detalles.getText().toString(),new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText().toString()), new SimpleDateFormat("hh:mm").parse(txtHour.getText().toString()),
+                        FirebaseAuth.getInstance().getCurrentUser().getEmail());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -63,8 +65,8 @@ public class FormularioActivity extends AppCompatActivity {
         });
 
         buttonCancel.setOnClickListener(view ->{
-            setResult(RESULT_CANCELED);
-            finish();
+                setResult(RESULT_CANCELED);
+                finish();
         });
 
         btnDate.setOnClickListener(view -> {
@@ -140,4 +142,5 @@ public class FormularioActivity extends AppCompatActivity {
             }
         }
     }
+
 }

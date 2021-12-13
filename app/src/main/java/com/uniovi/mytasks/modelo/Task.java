@@ -7,13 +7,16 @@ import java.util.Date;
 
 public class Task implements Parcelable {
 
+    private String id;
     private String titulo;
     private String descripcion;
     private Date fecha;
     private Date hora;
     private String ubicacion;
+    private String email;
 
 
+    public Task(){}
 
     public Task(String titulo, String descripcion, Date fecha, Date hora) {
         this.titulo = titulo;
@@ -22,22 +25,38 @@ public class Task implements Parcelable {
         this.hora = hora;
     }
 
-    public Task(String titulo, String descripcion, Date fecha, String ubicacion, Date hora) {
+    public Task(String titulo, String descripcion, Date fecha, Date hora, String email) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.email = email;
+    }
+
+    public Task(String titulo, String descripcion, Date fecha, String ubicacion, Date hora, String email) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
         this.ubicacion = ubicacion;
+        this.email = email;
     }
 
 
 
     public Task(Parcel in) {
+        this.id = in.readString();
         this.titulo = in.readString();
         this.descripcion = in.readString();
         this.fecha = new Date(in.readLong());
         this.hora = new Date(in.readLong());
+        this.ubicacion = in.readString();
+        this.email = in.readString();
     }
+
+    public String getId(){ return id; }
+
+    public void setId(String id){ this.id = id; }
 
     public String getTitulo() {
         return titulo;
@@ -80,6 +99,14 @@ public class Task implements Parcelable {
         this.ubicacion = ubicacion;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public static final Creator<Task> CREATOR = new Creator<Task>() {
         @Override
         public Task createFromParcel(Parcel in) {
@@ -99,9 +126,12 @@ public class Task implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.titulo);
         dest.writeString(this.descripcion);
         dest.writeLong(this.fecha.getTime());
+        dest.writeString(this.ubicacion);
+        dest.writeString(this.email);
     }
 
     @Override
