@@ -12,6 +12,7 @@ public class Task implements Parcelable {
     private String descripcion;
     private Date fecha;
     private String ubicacion;
+    private String email;
 
 
 
@@ -23,18 +24,19 @@ public class Task implements Parcelable {
         this.fecha = fecha;
     }
 
-    public Task(String id, String titulo, String descripcion, Date fecha) {
-        this.id = id;
+    public Task(String titulo, String descripcion, Date fecha, String email) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
+        this.email = email;
     }
 
-    public Task(String titulo, String descripcion, Date fecha, String ubicacion) {
+    public Task(String titulo, String descripcion, Date fecha, String ubicacion, String email) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.ubicacion = ubicacion;
+        this.email = email;
     }
 
 
@@ -45,6 +47,7 @@ public class Task implements Parcelable {
         this.descripcion = in.readString();
         this.fecha = new Date(in.readLong());
         this.ubicacion = in.readString();
+        this.email = in.readString();
     }
 
     public String getId(){ return id; }
@@ -83,6 +86,14 @@ public class Task implements Parcelable {
         this.ubicacion = ubicacion;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public static final Creator<Task> CREATOR = new Creator<Task>() {
         @Override
         public Task createFromParcel(Parcel in) {
@@ -107,6 +118,7 @@ public class Task implements Parcelable {
         dest.writeString(this.descripcion);
         dest.writeLong(this.fecha.getTime());
         dest.writeString(this.ubicacion);
+        dest.writeString(this.email);
     }
 
     @Override

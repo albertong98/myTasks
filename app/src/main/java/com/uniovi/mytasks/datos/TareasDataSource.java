@@ -22,7 +22,7 @@ public class TareasDataSource {
      * Columnas de la tabla
      */
     private final String[] allColumns = {MyDBHelper.COLUMNA_ID_TAREA,MyDBHelper.COLUMNA_TITULO_TAREA,
-            MyDBHelper.COLUMNA_DESCRIPCION_TAREA,MyDBHelper.COLUMNA_FECHA_TAREA, MyDBHelper.COLUMNA_UBICACION};
+            MyDBHelper.COLUMNA_DESCRIPCION_TAREA,MyDBHelper.COLUMNA_FECHA_TAREA, MyDBHelper.COLUMNA_UBICACION, MyDBHelper.COLUMNA_EMAIL};
 
     public TareasDataSource(Context context) {
         //el último parámetro es la versión
@@ -47,6 +47,7 @@ public class TareasDataSource {
         values.put(MyDBHelper.COLUMNA_DESCRIPCION_TAREA,taskToInsert.getDescripcion());
         values.put(MyDBHelper.COLUMNA_FECHA_TAREA,taskToInsert.getFecha().getTime());
         values.put(MyDBHelper.COLUMNA_UBICACION,taskToInsert.getUbicacion());
+        values.put(MyDBHelper.COLUMNA_EMAIL,taskToInsert.getEmail());
 
         // Insertamos la valoracion
         long insertId =
@@ -73,6 +74,7 @@ public class TareasDataSource {
             task.setDescripcion(cursor.getString(2));
             task.setFecha(new Date(cursor.getInt(3)));
             task.setUbicacion(cursor.getString(4));
+            task.setEmail(cursor.getString(5));
             taskList.add(task);
             cursor.moveToNext();
         }
@@ -81,6 +83,35 @@ public class TareasDataSource {
         // Una vez obtenidos todos los datos y cerrado el cursor, devolvemos la
         // lista.
         this.close();
+        return taskList;
+    }
+
+    public List<Task> getTasksByUser(String email) {
+        this.open();
+        List<Task> taskList = new ArrayList<Task>();
+
+        Cursor cursor = database.rawQuery("Select * " +
+                " FROM " + MyDBHelper.TABLA_TAREAS +
+                " WHERE " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_EMAIL + " = \"" + email + "\"", null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            final Task task= new Task();
+            cursor.getInt(0);
+            task.setId(cursor.getString(0));
+            task.setTitulo(cursor.getString(1));
+            task.setDescripcion(cursor.getString(2));
+            task.setFecha(new Date(cursor.getInt(3)));
+            task.setUbicacion(cursor.getString(4));
+            task.setEmail(cursor.getString(5));
+            taskList.add(task);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        // Una vez obtenidos todos los datos y cerrado el cursor, devolvemos la
+        // lista.
+
         return taskList;
     }
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.uniovi.mytasks.datos.TareasDataSource;
 import com.uniovi.mytasks.modelo.Task;
 import com.uniovi.mytasks.util.Lector;
@@ -67,14 +69,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recycler_view);
-
-        // Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         cargarTareasDB();
 
@@ -123,9 +117,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.boton_usuario){
-            Intent intentSettingsActivity = new Intent(MainActivity.this, UsuariosActivity.class);
-            startActivity(intentSettingsActivity);
-            return true;
+            FirebaseAuth.getInstance().signOut();
+            this.finish();
         }
         return false;
     }
@@ -202,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void cargarTareasDB(){
         taskDataSource = new TareasDataSource(getApplicationContext());
-        listaTareas = taskDataSource.getAllValorations();
+        listaTareas = taskDataSource.getTasksByUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
     //private void listaTareasAdapter(){}
 

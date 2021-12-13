@@ -23,6 +23,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public static final String TABLA_TAREAS = "tabla_tareas";
 
     public static final String COLUMNA_ID_TAREA = "id_tarea";
+    public static final String COLUMNA_EMAIL = "email_tarea";
     public static final String COLUMNA_TITULO_TAREA = "titulo_tarea";
     public static final String COLUMNA_DESCRIPCION_TAREA = "descripcion_pelicula";
     public static final String COLUMNA_FECHA_TAREA = "fecha_pelicula";
@@ -34,7 +35,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
             COLUMNA_TITULO_TAREA + " text not null," +
             COLUMNA_DESCRIPCION_TAREA  + " text," +
             COLUMNA_FECHA_TAREA + " integer not null," +
-            COLUMNA_UBICACION  + " text" +
+            COLUMNA_UBICACION  + " text," +
+                    COLUMNA_EMAIL  + " text not null" +
             ");";
 
     /**
