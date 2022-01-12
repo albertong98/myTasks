@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login2);
+        setContentView(R.layout.activity_login);
 
         setup();
     }
@@ -28,18 +28,18 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EditText email = (EditText) findViewById(R.id.editTextTextEmailAddress);
-        EditText password = (EditText) findViewById(R.id.editTextTextPassword);
+        EditText email = (EditText) findViewById(R.id.editTextTextEmailAddress2);
+        EditText password = (EditText) findViewById(R.id.editTextTextPassword2);
 
         email.setText("");
         password.setText("");
     }
 
     private void setup() {
-        Button btnRegistro = (Button) findViewById(R.id.btnRegistro);
-        Button btnLogin = (Button) findViewById(R.id.btnLogin);
-        EditText email = (EditText) findViewById(R.id.editTextTextEmailAddress);
-        EditText password = (EditText) findViewById(R.id.editTextTextPassword);
+        Button btnRegistro = (Button) findViewById(R.id.btnRegistro2);
+        Button btnLogin = (Button) findViewById(R.id.btnLogin2);
+        EditText email = (EditText) findViewById(R.id.editTextTextEmailAddress2);
+        EditText password = (EditText) findViewById(R.id.editTextTextPassword2);
 
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,6 +46,7 @@ public class TareasDataSource {
         values.put(MyDBHelper.COLUMNA_TITULO_TAREA,taskToInsert.getTitulo());
         values.put(MyDBHelper.COLUMNA_DESCRIPCION_TAREA,taskToInsert.getDescripcion());
         values.put(MyDBHelper.COLUMNA_FECHA_TAREA,taskToInsert.getFecha().getTime());
+        values.put(MyDBHelper.COLUMNA_HORA_TAREA,taskToInsert.getHora().getTime());
         values.put(MyDBHelper.COLUMNA_UBICACION,taskToInsert.getUbicacion());
         values.put(MyDBHelper.COLUMNA_EMAIL,taskToInsert.getEmail());
 
@@ -92,7 +93,7 @@ public class TareasDataSource {
 
         Cursor cursor = database.rawQuery("Select * " +
                 " FROM " + MyDBHelper.TABLA_TAREAS +
-                " WHERE " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_EMAIL + " = \"" + email + "\"", null);
+                " WHERE " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_EMAIL + " = \'" + email+"\'", null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -102,8 +103,9 @@ public class TareasDataSource {
             task.setTitulo(cursor.getString(1));
             task.setDescripcion(cursor.getString(2));
             task.setFecha(new Date(cursor.getInt(3)));
-            task.setUbicacion(cursor.getString(4));
-            task.setEmail(cursor.getString(5));
+            task.setHora(new Date(cursor.getInt(4)));
+            task.setUbicacion(cursor.getString(5));
+            task.setEmail(cursor.getString(6));
             taskList.add(task);
             cursor.moveToNext();
         }
@@ -113,5 +115,9 @@ public class TareasDataSource {
         // lista.
 
         return taskList;
+    }
+
+    public void deleteItem(String getID) {
+        database.execSQL("DELETE from "+ MyDBHelper.TABLA_TAREAS +"  WHERE "+ MyDBHelper.COLUMNA_ID_TAREA+" = '" +getID+ "'");
     }
 }

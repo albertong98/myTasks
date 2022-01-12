@@ -130,6 +130,7 @@ public class Task implements Parcelable {
         dest.writeString(this.titulo);
         dest.writeString(this.descripcion);
         dest.writeLong(this.fecha.getTime());
+        dest.writeLong(this.hora.getTime());
         dest.writeString(this.ubicacion);
         dest.writeString(this.email);
     }
