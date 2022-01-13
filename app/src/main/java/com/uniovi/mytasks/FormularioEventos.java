@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.uniovi.mytasks.modelo.Task;
 
@@ -27,6 +29,9 @@ import java.util.Date;
 public class FormularioEventos extends AppCompatActivity {
 
     private int day, month, year, hour, min;
+
+    public final static String MARKER = "marcador";
+    private final static int REQUEST_GET_MARKER_LOCATION = 0;
 
     EditText titulo;
     EditText detalles;
@@ -44,6 +49,8 @@ public class FormularioEventos extends AppCompatActivity {
         Button buttonCancel = findViewById(R.id.buttonCancel);
         ImageButton btnDate = findViewById(R.id.imgBtnDate);
         ImageButton btnTime = findViewById(R.id.imgBtnTime);
+
+        ImageButton btnMap = findViewById(R.id.imgBtnMap);
 
         titulo = (EditText) findViewById(R.id.txtTituloEventoAñadir);
         detalles = (EditText) findViewById(R.id.txtDetallesAñadir);
@@ -112,6 +119,11 @@ public class FormularioEventos extends AppCompatActivity {
                     , hour, min, true);
             timePickerDialog.show();
         });
+
+        btnMap.setOnClickListener(view -> {
+            Intent intent = new Intent (view.getContext(), MapaActivity.class);
+            startActivityForResult(intent, REQUEST_GET_MARKER_LOCATION);
+        });
     }
 
     public void Agregar(View view){
@@ -143,6 +155,19 @@ public class FormularioEventos extends AppCompatActivity {
                 txtDate.setText("");
                 Toast.makeText(getApplicationContext(), "Fecha Inválida", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_GET_MARKER_LOCATION && resultCode == MapaActivity.RESULT_OK && data!=null) {
+            String dataMarker = data.getStringExtra(MARKER);
+            if(dataMarker!=null)
+                ubicacion = (EditText) findViewById(R.id.txtUbicacion);
+                ubicacion.setText(dataMarker);
+
+
         }
     }
 }

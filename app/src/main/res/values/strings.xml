@@ -11,4 +11,7 @@
     <string name="Ubicación">ubicacion</string>
     <string name="ubicacion">Ubicación</string>
     <string name="txtHora">Hora</string>
+    <string name="title_activity_mapa">Mapa</string>
+    <string name="btnAñadirUbicacion">Añadir ubicación al evento</string>
+    <string name="btnCancelar">Cancelar</string>
 </resources>
