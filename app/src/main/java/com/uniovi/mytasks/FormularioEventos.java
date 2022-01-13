@@ -19,12 +19,11 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.uniovi.mytasks.modelo.Task;
+import com.uniovi.mytasks.ui.tareas.MainFragmentTareas;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class FormularioEventos extends AppCompatActivity {
 
@@ -69,7 +68,7 @@ public class FormularioEventos extends AppCompatActivity {
                 e.printStackTrace();
             }
             Intent intentResult = new Intent();
-            intentResult.putExtra(MainActivity.TAREA_ADD,task);
+            intentResult.putExtra(MainFragmentTareas.TAREA_ADD,task);
             setResult(RESULT_OK,intentResult);
             finish();
         });

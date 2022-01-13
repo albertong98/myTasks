@@ -1,15 +1,14 @@
 package com.uniovi.mytasks;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.uniovi.mytasks.modelo.Task;
+import com.uniovi.mytasks.ui.tareas.MainFragmentTareas;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,7 +24,7 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         Intent intent = getIntent();
-        Task task = intent.getParcelableExtra(MainActivity.TAREA_SELECCIONADA);
+        Task task = intent.getParcelableExtra(MainFragmentTareas.TAREA_SELECCIONADA);
 
         titulo = findViewById(R.id.tituloTarea);
         descripcion = findViewById(R.id.descripcion);
@@ -50,7 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void deleteTask(Task task){
         Intent intentResult = new Intent();
-        intentResult.putExtra(MainActivity.TAREA_DELETE, task);
+        intentResult.putExtra(MainFragmentTareas.TAREA_DELETE, task);
         setResult(RESULT_OK,intentResult);
         finish();
     }
