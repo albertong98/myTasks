@@ -11,6 +11,11 @@
         android:theme="@style/Theme.MyTasks"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".NavActivity"
+            android:exported="false"
+            android:label="@string/title_activity_nav"
+            android:theme="@style/Theme.MyTasks.NoActionBar" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -19,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".FormularioEventos"
             android:exported="true" />
@@ -32,15 +36,14 @@
         <activity
             android:name=".UsuariosActivity"
             android:label="Usuarios"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.tareas.MainFragmentTareas" />
         <activity
             android:name=".WeatherActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.tareas.MainFragmentTareas" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:name=".ui.tareas.MainFragmentTareas"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

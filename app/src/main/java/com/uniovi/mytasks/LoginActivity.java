@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent mainIntent = new Intent(LoginActivity.this, NavActivity.class);
                                 startActivity(mainIntent);
                             } else {
                                 Toast.makeText(LoginActivity.this, "Error en el registro", Toast.LENGTH_SHORT);
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent mainIntent = new Intent(LoginActivity.this, NavActivity.class);
                                 startActivity(mainIntent);
                             } else {
                                 Toast.makeText(LoginActivity.this, "Error en el inicio de sesion", Toast.LENGTH_SHORT);
