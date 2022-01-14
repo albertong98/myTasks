@@ -66,7 +66,7 @@ public class FormularioActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent intentResult = new Intent();
-                intentResult.putExtra(MainActivity.TAREA_ADD,task);
+                intentResult.putExtra(MainFragmentTareas.TAREA_ADD,task);
                 setResult(RESULT_OK,intentResult);
                 finish();
             }
