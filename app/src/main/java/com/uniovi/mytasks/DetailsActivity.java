@@ -62,11 +62,6 @@ public class DetailsActivity extends AppCompatActivity {
             if(task.getUbicacion() != null && !task.getUbicacion().isEmpty() && task.getUbicacion().length() != 0)
                 peticionTiempo(weatherApi,task);
         }
-
-        ImageButton delete = findViewById(R.id.deleteButton);
-        delete.setOnClickListener(view ->{
-            deleteTask(task);
-        });
     }
 
     private void rellenarDatos(Task task){
@@ -76,13 +71,6 @@ public class DetailsActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         fecha.setText(df.format(task.getFecha()));
-    }
-
-    private void deleteTask(Task task){
-        Intent intentResult = new Intent();
-        intentResult.putExtra(MainFragmentTareas.TAREA_DELETE, task);
-        setResult(RESULT_OK,intentResult);
-        finish();
     }
 
     private void peticionTiempo(weatherApi api,Task task){

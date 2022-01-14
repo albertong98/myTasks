@@ -62,10 +62,6 @@
             android:name=".UsuariosActivity"
             android:label="Usuarios"
             android:parentActivityName=".ui.tareas.MainFragmentTareas" />
-        <activity
-            android:name=".WeatherActivity"
-            android:exported="true"
-            android:parentActivityName=".ui.tareas.MainFragmentTareas" />
 
         <meta-data
             android:name="com.google.android.get.API_KEY"

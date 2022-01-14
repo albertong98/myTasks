@@ -35,7 +35,6 @@ import com.uniovi.mytasks.FormularioActivity;
 import com.uniovi.mytasks.FormularioEventos;
 import com.uniovi.mytasks.ListaTareasAdapter;
 import com.uniovi.mytasks.R;
-import com.uniovi.mytasks.WeatherActivity;
 import com.uniovi.mytasks.datos.TareasDataSource;
 import com.uniovi.mytasks.modelo.Task;
 import com.uniovi.mytasks.util.Lector;
@@ -66,7 +65,6 @@ public class MainFragmentEventos extends Fragment {
     private FloatingActionButton fABAdd;
     private FloatingActionButton fABEventos;
     private FloatingActionButton fABTareas;
-    private FloatingActionButton fABTiempo;
 
     private View root;
 
@@ -115,10 +113,6 @@ public class MainFragmentEventos extends Fragment {
         fABTareas.setOnClickListener(view ->{
             crearNuevaTarea();
         });
-        fABTiempo = root.findViewById(R.id.fABtiempo);
-        fABTiempo.setOnClickListener(view ->{
-            verTiempo();
-        });
 
         return root;
     }
@@ -131,11 +125,6 @@ public class MainFragmentEventos extends Fragment {
     private void crearNuevoEvento(){
         Intent intent = new Intent(root.getContext(),FormularioEventos.class);
         startActivityForResult(intent,GESTION_TAREA);
-    }
-
-    private void verTiempo(){
-        Intent intent = new Intent(root.getContext(),WeatherActivity.class);
-        startActivity(intent);
     }
 
     @Override

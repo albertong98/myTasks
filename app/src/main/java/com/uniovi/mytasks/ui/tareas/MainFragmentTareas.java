@@ -35,7 +35,6 @@ import com.uniovi.mytasks.FormularioActivity;
 import com.uniovi.mytasks.FormularioEventos;
 import com.uniovi.mytasks.ListaTareasAdapter;
 import com.uniovi.mytasks.R;
-import com.uniovi.mytasks.WeatherActivity;
 import com.uniovi.mytasks.datos.TareasDataSource;
 import com.uniovi.mytasks.modelo.Task;
 import com.uniovi.mytasks.util.Lector;
@@ -66,7 +65,6 @@ public class MainFragmentTareas extends Fragment {
     private FloatingActionButton fABAdd;
     private FloatingActionButton fABEventos;
     private FloatingActionButton fABTareas;
-    private FloatingActionButton fABTiempo;
 
     private View root;
 
@@ -115,10 +113,6 @@ public class MainFragmentTareas extends Fragment {
         fABTareas.setOnClickListener(view ->{
             crearNuevaTarea();
         });
-        fABTiempo = root.findViewById(R.id.fABtiempo);
-        fABTiempo.setOnClickListener(view ->{
-            verTiempo();
-        });
 
         return root;
     }
@@ -131,11 +125,6 @@ public class MainFragmentTareas extends Fragment {
     private void crearNuevoEvento(){
         Intent intent = new Intent(root.getContext(),FormularioEventos.class);
         startActivityForResult(intent,GESTION_TAREA);
-    }
-
-    private void verTiempo(){
-        Intent intent = new Intent(root.getContext(),WeatherActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -174,28 +163,6 @@ public class MainFragmentTareas extends Fragment {
         }else{
             fABEventos.setVisibility(INVISIBLE);
             fABTareas.setVisibility(INVISIBLE);
-        }
-    }
-
-    private void cargarTareas(){
-        listaTareas = new ArrayList<Task>();
-        String result = Lector.leerDeJson(root.getContext(),"tareas.json");
-        try{
-            JSONObject jsonTareas = new JSONObject(result);
-            JSONArray tareas = jsonTareas.getJSONArray("tareas");
-            for(int i=0;i<tareas.length();i++){
-                JSONObject tarea = tareas.getJSONObject(i);
-                String titulo = tarea.getString("titulo");
-                String descripcion = tarea.getString("descripcion");
-                String fecha = tarea.getString("fecha");
-                String hora = tarea.getString( "hora");
-
-                listaTareas.add(new Task(titulo,descripcion,new SimpleDateFormat("dd/MM/yyyy").parse(fecha),new SimpleDateFormat("hh:mm").parse(hora)));
-            }
-        }catch(JSONException e){
-            e.printStackTrace();
-        }catch(ParseException p){
-            p.printStackTrace();
         }
     }
 
@@ -241,22 +208,6 @@ public class MainFragmentTareas extends Fragment {
         Intent intent = new Intent(root.getContext(), DetailsActivity.class);
         intent.putExtra(TAREA_SELECCIONADA, tarea);
         startActivityForResult(intent,MODIFICAR_TAREA);
-    }
-
-    private void addTarea(Task task){
-        taskDataSource = new TareasDataSource(root.getContext());
-        taskDataSource.createtask(task);
-    }
-
-    private void deleteTask(Task task){
-        Integer i = null;
-        for(Task t : listaTareas)
-            if(t.getTitulo().equals(task.getTitulo()) && t.getFecha().equals(task.getFecha()) && t.getDescripcion().equals(task.getDescripcion()))
-                i = listaTareas.indexOf(t);
-        if(i !=null)
-            listaTareas.remove(i.intValue());
-
-        introListaTareas();
     }
 
     private void enableSwipe(){

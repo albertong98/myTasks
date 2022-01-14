@@ -63,18 +63,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tituloTarea"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
-    <ImageButton
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.904"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termometro"
-        app:layout_constraintVertical_bias="0.385"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
-
     <ImageView
         android:id="@+id/descripciontiempo"
         android:layout_width="53dp"
@@ -109,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toEndOf="@+id/termometro"
         app:layout_constraintTop_toBottomOf="@+id/descripciontiempo"
-        app:layout_constraintVertical_bias="0.243" />
+        app:layout_constraintVertical_bias="0.212" />
 
     <TextView
         android:id="@+id/descripcionTexto"
@@ -122,6 +110,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/descripciontiempo"
         app:layout_constraintTop_toBottomOf="@+id/imageViewFecha"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintVertical_bias="0.219" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
