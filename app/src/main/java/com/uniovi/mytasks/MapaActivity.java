@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,13 +44,21 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         buttonAñadirUb.setOnClickListener(view ->{
+            if(marcaUsuario==null){
+                Toast noLocation =
+                        Toast.makeText(getApplicationContext(),
+                                "Tienes que añadir una ubicacion", Toast.LENGTH_SHORT);
 
-            Intent intentResult = new Intent();
+                noLocation.show();
+            }else{
+                Intent intentResult = new Intent();
 //            intentResult.putExtra(FormularioEventos.MARKER,addresses.size() > 0 ? addresses.get(0).getLocality():""+marcaUsuario.getPosition());
-            String LatLng = marcaUsuario.getPosition().latitude + ", " + marcaUsuario.getPosition().longitude;
-            intentResult.putExtra(FormularioEventos.MARKER,LatLng);
-            setResult(RESULT_OK,intentResult);
-            finish();
+                String LatLng = marcaUsuario.getPosition().latitude + ", " + marcaUsuario.getPosition().longitude;
+                intentResult.putExtra(FormularioEventos.MARKER,LatLng);
+                setResult(RESULT_OK,intentResult);
+                finish();
+            }
+
         });
 
         buttonCancelar.setOnClickListener(view ->{

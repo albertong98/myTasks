@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken("454078945586-0cqkqgg55qd051rkolo4h83uo4f7fd2a.apps.googleusercontent.com")
+                        .requestIdToken(getString(R.string.default_web_client_id))
                         .requestEmail()
                         .build();
                 GoogleSignInClient googleClient = GoogleSignIn.getClient(LoginActivity.this, gso);
