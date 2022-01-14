@@ -28,4 +28,5 @@
     <string name="menu_tareas">Tareas</string>
     <string name="menu_actividades">Actividades</string>
     <string name="action_logout">Cerrar Sesion</string>
+    <string name="menu_eventos">Eventos</string>
 </resources>
