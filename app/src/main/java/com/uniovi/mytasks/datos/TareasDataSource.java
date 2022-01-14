@@ -152,7 +152,14 @@ public class TareasDataSource {
             task.setId(cursor.getString(0));
             task.setTitulo(cursor.getString(1));
             task.setDescripcion(cursor.getString(2));
-            task.setFecha(new Date(cursor.getInt(3)));
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            try{
+                String s = cursor.getString(3);
+                Date date = formatter.parse(s);
+                task.setFecha(date);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
             task.setHora(new Date(cursor.getInt(4)));
             task.setUbicacion(cursor.getString(5));
             task.setEmail(cursor.getString(6));
