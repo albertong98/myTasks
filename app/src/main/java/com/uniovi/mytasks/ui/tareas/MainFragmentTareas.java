@@ -37,7 +37,6 @@ import com.uniovi.mytasks.ListaTareasAdapter;
 import com.uniovi.mytasks.R;
 import com.uniovi.mytasks.datos.TareasDataSource;
 import com.uniovi.mytasks.modelo.Task;
-import com.uniovi.mytasks.util.Lector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
