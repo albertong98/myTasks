@@ -31,7 +31,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
             COLUMNA_ID_TAREA + " text primary key," +
             COLUMNA_TITULO_TAREA + " text not null," +
             COLUMNA_DESCRIPCION_TAREA  + " text," +
-            COLUMNA_FECHA_TAREA + " integer not null," +
+            COLUMNA_FECHA_TAREA + " text not null," +
             COLUMNA_HORA_TAREA + " integer not null," +
             COLUMNA_UBICACION  + " text," +
                     COLUMNA_EMAIL  + " text not null" +

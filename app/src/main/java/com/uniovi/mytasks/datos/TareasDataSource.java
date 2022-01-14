@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.uniovi.mytasks.modelo.Task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +47,9 @@ public class TareasDataSource {
         values.put(MyDBHelper.COLUMNA_ID_TAREA, UUID.randomUUID().toString());
         values.put(MyDBHelper.COLUMNA_TITULO_TAREA,taskToInsert.getTitulo());
         values.put(MyDBHelper.COLUMNA_DESCRIPCION_TAREA,taskToInsert.getDescripcion());
-        values.put(MyDBHelper.COLUMNA_FECHA_TAREA,taskToInsert.getFecha().getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String sFecha = formatter.format(taskToInsert.getFecha());
+        values.put(MyDBHelper.COLUMNA_FECHA_TAREA,sFecha);
         values.put(MyDBHelper.COLUMNA_HORA_TAREA,taskToInsert.getHora().getTime());
         values.put(MyDBHelper.COLUMNA_UBICACION,taskToInsert.getUbicacion());
         values.put(MyDBHelper.COLUMNA_EMAIL,taskToInsert.getEmail());
@@ -73,7 +77,14 @@ public class TareasDataSource {
             task.setId(cursor.getString(0));
             task.setTitulo(cursor.getString(1));
             task.setDescripcion(cursor.getString(2));
-            task.setFecha(new Date(cursor.getInt(3)));
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            try{
+                String s = cursor.getString(3);
+                Date date = formatter.parse(s);
+                task.setFecha(date);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
             task.setUbicacion(cursor.getString(4));
             task.setEmail(cursor.getString(5));
             taskList.add(task);
@@ -103,7 +114,14 @@ public class TareasDataSource {
             task.setId(cursor.getString(0));
             task.setTitulo(cursor.getString(1));
             task.setDescripcion(cursor.getString(2));
-            task.setFecha(new Date(cursor.getInt(3)));
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            try{
+                String s = cursor.getString(3);
+                Date date = formatter.parse(s);
+                task.setFecha(date);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
             task.setHora(new Date(cursor.getInt(4)));
             task.setUbicacion(cursor.getString(5));
             task.setEmail(cursor.getString(6));
