@@ -76,4 +76,16 @@
         app:layout_constraintStart_toEndOf="@+id/descripcionTiempo"
         app:layout_constraintTop_toBottomOf="@+id/temperatura"
         app:layout_constraintVertical_bias="0.058" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="53dp"
+        android:layout_height="49dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valorDescripcion"
+        app:layout_constraintVertical_bias="0.088"
+        app:srcCompat="?attr/selectableItemBackground" />
 </androidx.constraintlayout.widget.ConstraintLayout>

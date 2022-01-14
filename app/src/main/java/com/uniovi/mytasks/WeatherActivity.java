@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.uniovi.mytasks.modelo.WeatherResponse;
 import com.uniovi.mytasks.remote.weatherApi;
 
@@ -19,6 +21,9 @@ public class WeatherActivity extends AppCompatActivity {
     TextView temperatura;
     TextView descripcion;
 
+    ImageView descripcionImg;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +31,9 @@ public class WeatherActivity extends AppCompatActivity {
 
         temperatura = findViewById(R.id.temperatura);
         descripcion = findViewById(R.id.valorDescripcion);
+        descripcionImg = findViewById(R.id.imageView3);
+
+        //descripcionImg.setImageResource(0);
 
         weatherApi weatherApi = createWeatherApi();
 
@@ -44,6 +52,8 @@ public class WeatherActivity extends AppCompatActivity {
                 public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                     temperatura.setText(response.body().main.getTemp()+" ºC");
                     descripcion.setText(response.body().weather.get(0).description);
+
+                    Picasso.get().load("http://openweathermap.org/img/wn/"+response.body().weather.get(0).icon+"@2x.png").into(descripcionImg);
                 }
 
                 @Override
