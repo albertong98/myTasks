@@ -93,7 +93,39 @@ public class TareasDataSource {
 
         Cursor cursor = database.rawQuery("Select * " +
                 " FROM " + MyDBHelper.TABLA_TAREAS +
-                " WHERE " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_EMAIL + " = \'" + email+"\'", null);
+                " WHERE " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_EMAIL + " = \'" + email+"\'"+
+                " AND " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_UBICACION + " IS NULL", null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            final Task task= new Task();
+            cursor.getInt(0);
+            task.setId(cursor.getString(0));
+            task.setTitulo(cursor.getString(1));
+            task.setDescripcion(cursor.getString(2));
+            task.setFecha(new Date(cursor.getInt(3)));
+            task.setHora(new Date(cursor.getInt(4)));
+            task.setUbicacion(cursor.getString(5));
+            task.setEmail(cursor.getString(6));
+            taskList.add(task);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        // Una vez obtenidos todos los datos y cerrado el cursor, devolvemos la
+        // lista.
+
+        return taskList;
+    }
+
+    public List<Task> getEventsByUser(String email) {
+        this.open();
+        List<Task> taskList = new ArrayList<Task>();
+
+        Cursor cursor = database.rawQuery("Select * " +
+                " FROM " + MyDBHelper.TABLA_TAREAS +
+                " WHERE " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_EMAIL + " = \'" + email+"\'" +
+                " AND " + MyDBHelper.TABLA_TAREAS + "." + MyDBHelper.COLUMNA_UBICACION + " IS NOT NULL", null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

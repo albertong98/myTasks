@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
+import com.uniovi.mytasks.ui.tareas.MainFragmentTareas;
+
 public class UsuariosActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
@@ -40,6 +42,6 @@ public class UsuariosActivity extends AppCompatActivity {
         super.onPause();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.usuario = sharedPreferences.getString("keyUsuario", "");
+        MainFragmentTareas.usuario = sharedPreferences.getString("keyUsuario", "");
     }
 }

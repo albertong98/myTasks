@@ -17,11 +17,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.uniovi.mytasks.modelo.Task;
+import com.uniovi.mytasks.ui.tareas.MainFragmentTareas;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class FormularioActivity extends AppCompatActivity {
 
@@ -70,7 +70,6 @@ public class FormularioActivity extends AppCompatActivity {
                 setResult(RESULT_OK,intentResult);
                 finish();
             }
-
         });
 
         buttonCancel.setOnClickListener(view ->{
